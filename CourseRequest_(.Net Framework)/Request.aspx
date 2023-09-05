@@ -90,7 +90,7 @@
 
             <div class="row">
                 <div class="col-auto">
-                    <span class="countApp">Количество заявок: @ViewData["RequestCount"]</span>
+                    <span class="countApp">Количество ролей: <%= requestCount %> </span>
                 </div>
             </div>
             <div class="row">
@@ -101,21 +101,49 @@
                 </div>
             </div>
 
-            <asp:GridView ID="GridViewRequests" runat="server" AutoGenerateColumns="false" CssClass="table">
-                <Columns>
-                    <asp:BoundField DataField="Full_Name" HeaderText="ФИО обучаемого" />
-                    <asp:BoundField DataField="Department" HeaderText="Отдел" />
-                    <asp:BoundField DataField="Position" HeaderText="Должность" />
-                    <asp:BoundField DataField="Course_Name" HeaderText="Наименование курса" />
-                    <asp:BoundField DataField="Course_Type" HeaderText="Тип курса" />
-                    <asp:BoundField DataField="Notation" HeaderText="Примечание" />
-                    <asp:BoundField DataField="Status" HeaderText="Статус" />
-                    <asp:BoundField DataField="Course_Start" HeaderText="Дата начала" DataFormatString="{0:dd.MM.yyyy}" />
-                    <asp:BoundField DataField="Course_End" HeaderText="Дата окончания" DataFormatString="{0:dd.MM.yyyy}" />
-                    <asp:BoundField DataField="Year" HeaderText="Год" />
-                    <asp:BoundField DataField="User" HeaderText="Пользователь" />
-                </Columns>
-            </asp:GridView>
+
+            <div class="row mb-4 mt-2">
+
+                <hr class="mt-2 mb-0" style="color: grey" />
+
+                <asp:Repeater ID="RepeaterRequests" runat="server" ItemType="CourseRequest__.Net_Framework_.Models.Request">
+                    <HeaderTemplate>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">ФИО обучаемого</th>
+                                    <th class="text-center">Должность</th>
+                                    <th class="text-center">Наименование курса</th>
+                                    <th class="text-center">Тип курса</th>
+                                    <th class="text-center">Примечание</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                    </HeaderTemplate>
+
+
+                    <ItemTemplate>
+                        <tbody>
+                            <tr>
+                                <td class="text-center"><%# Eval("Full_Name") %></td>
+                                <td class="text-center"><%# Eval("Position") %></td>
+                                <td class="text-center"><%# Eval("Course_Name") %></td>
+                                <td class="text-center"><%# Eval("Course_Type") %></td>
+                                <td class="text-center"><%# Eval("Notation") %></td>
+                                <td class="text-center"><a class="text-decoration-none" runat="server" href="~/ListRequest">Содержание</a></td>
+                            </tr>
+                        </tbody>
+                    </ItemTemplate>
+
+                    <FooterTemplate>
+                        </table>
+                    </FooterTemplate>
+                </asp:Repeater>
+            </div>
+
+
+
+
 
 
 

@@ -15,12 +15,12 @@ namespace CourseRequest__.Net_Framework_
     {
 
         /// <summary>
-        /// GridViewRequests элемент управления.
+        /// RepeaterRequests элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewRequests;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterRequests;
     }
 }
