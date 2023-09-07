@@ -4,7 +4,7 @@
 
 <html lang="ru">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - Мое приложение ASP.NET</title>
@@ -12,7 +12,7 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
@@ -37,35 +37,23 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <%--
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" runat="server" href="~/">Имя приложения</a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Переключить навигацию" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/">Домашняя страница</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/About">Информация</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Связаться с нами</a></li>
-                    </ul>
-                    <p class="navbar-text navbar-right">Здравствуйте, <asp:LoginName runat="server" />!</p>
-                </div>
-            </div>
-        </nav>
-        --%>
+
 
         <div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </div>
 
-
+        <asp:PlaceHolder runat="server">
+            <%: Scripts.Render("~/Scripts/bootstrap.js") %>
+        </asp:PlaceHolder>
+        <asp:PlaceHolder runat="server">
+            <%: Scripts.Render("~/Scripts/Site.js") %>
+        </asp:PlaceHolder>
+        <asp:PlaceHolder runat="server">
+            <%: Scripts.Render("~/Addons/jquery-mask/jquery.maskedinput.min.js") %>
+        </asp:PlaceHolder>
     </form>
-    <asp:PlaceHolder runat="server">
-        <%: Scripts.Render("~/Scripts/bootstrap.js") %>
-    </asp:PlaceHolder>
+
 </body>
 </html>

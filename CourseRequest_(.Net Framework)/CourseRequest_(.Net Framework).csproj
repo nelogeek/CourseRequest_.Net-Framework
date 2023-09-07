@@ -153,6 +153,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Addons\bootstrap-datepicker\1.6.4\css\bootstrap-datepicker.css" />
+    <Content Include="Addons\bootstrap-datepicker\1.6.4\js\bootstrap-datepicker.js" />
+    <Content Include="Addons\bootstrap-datepicker\1.6.4\locales\bootstrap-datepicker.ru.min.js" />
+    <Content Include="Addons\jquery-mask\jquery.maskedinput.min.js" />
+    <Content Include="Addons\twitter-bootstrap\3.0.3\css\bootstrap.min.css" />
+    <Content Include="Addons\twitter-bootstrap\3.0.3\js\bootstrap.min.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -208,6 +214,7 @@
     <Content Include="Scripts\jquery-3.7.0.slim.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
     <Content Include="Scripts\WebForms\GridView.js" />
