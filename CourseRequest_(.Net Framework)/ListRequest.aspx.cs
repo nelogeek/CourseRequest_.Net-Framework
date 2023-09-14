@@ -248,7 +248,7 @@ namespace CourseRequest__.Net_Framework_
 
         protected string GetUserName()
         {
-            string userName = $"{Dns.GetHostName()}\\{Environment.UserName}";
+            string userName = Page.User.Identity.Name;
             return userName;
         }
 

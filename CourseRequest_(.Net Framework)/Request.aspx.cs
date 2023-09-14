@@ -23,6 +23,9 @@ namespace CourseRequest__.Net_Framework_
         {
             if (!IsPostBack)
             {
+                string username = Page.User.Identity.Name; // Замените YourLoginNameControlID на фактический ID элемента <asp:LoginName>
+                Username.Value = username;
+
                 InsertUsernameInDB();
 
                 // получение количества НОВЫХ заявок
@@ -163,7 +166,7 @@ namespace CourseRequest__.Net_Framework_
 
         protected string GetUserName()
         {
-            string userName = $"{Dns.GetHostName()}\\{Environment.UserName}";
+            string userName = Page.User.Identity.Name;
             return userName;
         }
 
