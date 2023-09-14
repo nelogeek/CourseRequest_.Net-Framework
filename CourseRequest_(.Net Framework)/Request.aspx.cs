@@ -61,7 +61,7 @@ namespace CourseRequest__.Net_Framework_
                 connection.Open();
             
                 // SQL-запрос для вставки данных в таблицу 'request'
-                string sql = @"INSERT INTO public.request (full_name, department, position, course_name, course_type_id, notation, status_id, course_start, course_end, year, ""user"") 
+                string sql = @"INSERT INTO public.request (full_name, department, position, course_name, course_type_id, notation, status_id, course_start, course_end, year, user_id) 
                        VALUES (@FullName, @Department, @Position, @CourseName, @CourseType, @Notation, @Status, @CourseStart, @CourseEnd, @Year, @User)";
             
                 using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
@@ -224,7 +224,8 @@ namespace CourseRequest__.Net_Framework_
                         "FROM public.request r " +
                         "JOIN public.type t ON t.id = r.course_type_id " +
                         "JOIN public.status s ON s.id = r.status_id JOIN public.users u ON u.id = r.user_id " +
-                        "WHERE s.status = 'Новая' AND u.username = @User";
+                        "WHERE s.status = 'Новая' AND u.username = @User " +
+                        "ORDER BY id DESC";
 
                     using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                     {

@@ -11,7 +11,7 @@ namespace CourseRequest__.Net_Framework_
 {
 
 
-    public partial class _Request
+    public partial class _Details
     {
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace CourseRequest__.Net_Framework_
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected new global::System.Web.UI.HtmlControls.HtmlInputHidden User;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden User;
 
         /// <summary>
         /// createRequestButton элемент управления.
@@ -112,14 +112,5 @@ namespace CourseRequest__.Net_Framework_
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton createRequestButton;
-
-        /// <summary>
-        /// RepeaterRequests элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RepeaterRequests;
     }
 }

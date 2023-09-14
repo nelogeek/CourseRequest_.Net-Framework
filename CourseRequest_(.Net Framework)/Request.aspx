@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Request.aspx.cs" Inherits="CourseRequest__.Net_Framework_._Request" %>
+﻿<%@ Page Title="Создать заявку" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Request.aspx.cs" Inherits="CourseRequest__.Net_Framework_._Request" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -67,10 +67,10 @@
                     <label>Период проведения курса</label>
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="text" class="form-control" id="Course_Start" name="Course_Start" placeholder="от" runat="server" required />
+                            <input type="text" class="form-control date-start date-input" id="Course_Start" name="Course_Start" placeholder="от" runat="server" required />
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" id="Course_End" name="Course_End" placeholder="до" runat="server" required />
+                            <input type="text" class="form-control date-input" id="Course_End" name="Course_End" placeholder="до" runat="server" required />
                         </div>
                     </div>
                 </section>
@@ -98,16 +98,16 @@
 
                 <div class="col text-center">
                     <input type="hidden" id="User" name="User" value="" runat="server">
-                    <button type="submit" class="btn btn-primary btn-custom-outline-orange text-white" runat="server" onserverclick="CreateRequestButton_Click">Создать заявку</button>
+                    <button type="submit" id="createRequestButton" class="btn btn-primary btn-custom-outline-orange text-white" runat="server" onserverclick="CreateRequestButton_Click">Создать заявку</button>
+
                 </div>
             </div>
-
 
             <div class="row mb-4 mt-2">
 
                 <hr class="mt-2 mb-0" style="color: grey" />
 
-                <asp:Repeater ID="RepeaterRequests" runat="server" ItemType="CourseRequest__.Net_Framework_.Models.Request">
+                  <asp:Repeater ID="RepeaterRequests" runat="server" ItemType="CourseRequest__.Net_Framework_.Models.Request">
                     <HeaderTemplate>
                         <table class="table">
                             <thead>
@@ -127,12 +127,12 @@
                         <tbody>
                             <tr>
                                 <td class="text-center"><%# Eval("Full_Name") %></td>
-                                <td class="text-center"><%# Eval("Position") %></td>
-                                <td class="text-center"><%# Eval("Course_Name") %></td>
-                                <td class="text-center"><%# Eval("Course_Type") %></td>
-                                <td class="text-center"><%# Eval("Notation") %></td>
-                                <td class="text-center"><a class="text-decoration-none" runat="server" href="~/ListRequest">Содержание</a></td>
-                            </tr>
+                                    <td class="text-center"><%# Eval("Position") %></td>
+                                    <td class="text-center"><%# Eval("Course_Name") %></td>
+                                    <td class="text-center"><%# Eval("Course_Type") %></td>
+                                    <td class="text-center"><%# Eval("Notation") %></td>
+                                    <td class="text-center"><a class="text-decoration-none" runat="server" href='<%# "~/Details.aspx?requestId=" + Eval("Id") %>'>Содержание</a></td>
+                                </tr>
                         </tbody>
                     </ItemTemplate>
 
@@ -141,12 +141,6 @@
                     </FooterTemplate>
                 </asp:Repeater>
             </div>
-
-
-
-
-
-
 
         </section>
     </main>

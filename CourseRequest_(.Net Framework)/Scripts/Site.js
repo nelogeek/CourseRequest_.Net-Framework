@@ -14,24 +14,55 @@ $(document).ready(function () {
     }
 
     var formattedDate = day + '.' + month + '.' + year;
-    $('#Course_Start').val(formattedDate);
+    $('.date-start').val(formattedDate);
 });
 
 
 
 
-//$(document).ready(function () {
-//    $('.datepicker').datepicker({
-//        changeMonth: true,
-//        changeYear: true,
-//        todayHighlight: true,
-//        format: "dd.mm.yyyy",
-//        language: "ru"
-//    });
-//});
-
-
+ // Маска для полей с датой
 $(document).ready(function () {
-    $('#Course_Start').mask('99.99.9999');
-    $('#Course_End').mask('99.99.9999');
+    $('.date-input').mask('99.99.9999');
 });
+
+// Фильтрация заявок
+$(document).ready(function () {
+    $('#applyFiltersBtn').click(function () {
+        // Получите значения фильтров из полей формы
+        var year = $('#yearSelect').val();
+        var status = $('#Stat').val();
+        var department = $('#Dep').val();
+        var courseBegin = $('#CourseBegin_list').val();
+        var courseEnd = $('#CourseEnd_list').val();
+        var fullName = $('#FullName').val();
+        var requestNumber = $('#RequestNumber').val();
+
+        // Отправьте запрос на сервер для применения фильтров
+        $.ajax({
+            type: "POST",
+            url: "ListRequest.aspx/ApplyFilters", // Путь к методу на сервере
+            data: JSON.stringify({
+                year: year,
+                status: status,
+                department: department,
+                courseBegin: courseBegin,
+                courseEnd: courseEnd,
+                fullName: fullName,
+                requestNumber: requestNumber
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                // Обновите таблицу с данными
+                // data содержит результаты после применения фильтров
+            },
+            error: function () {
+                alert('Произошла ошибка при отправке запроса на сервер.');
+            }
+        });
+    });
+});
+
+
+
+

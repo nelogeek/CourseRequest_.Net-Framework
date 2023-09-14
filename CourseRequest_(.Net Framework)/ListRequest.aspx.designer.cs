@@ -13,5 +13,23 @@ namespace CourseRequest__.Net_Framework_
 
     public partial class _ListRequest
     {
+
+        /// <summary>
+        /// yearSelect элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList yearSelect;
+
+        /// <summary>
+        /// RepeaterRequests элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RepeaterRequests;
     }
 }

@@ -48,11 +48,12 @@
             <%: Scripts.Render("~/Scripts/bootstrap.js") %>
         </asp:PlaceHolder>
         <asp:PlaceHolder runat="server">
-            <%: Scripts.Render("~/Scripts/Site.js") %>
-        </asp:PlaceHolder>
-        <asp:PlaceHolder runat="server">
             <%: Scripts.Render("~/Addons/jquery-mask/jquery.maskedinput.min.js") %>
         </asp:PlaceHolder>
+        <asp:PlaceHolder runat="server">
+            <%: Scripts.Render("~/Scripts/Site.js") %>
+        </asp:PlaceHolder>
+        
     </form>
 
 </body>
