@@ -1,0 +1,91 @@
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\CourseRequest_(.Net Framework).dll.config
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\CourseRequest_(.Net Framework).dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\CourseRequest_(.Net Framework).pdb
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\csc.exe
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\csc.exe.config
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\csc.rsp
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\csi.exe
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\csi.exe.config
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\csi.rsp
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\vbc.exe
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\vbc.exe.config
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\vbc.rsp
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\VBCSCompiler.exe
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Antlr3.Runtime.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\AspNet.ScriptManager.jQuery.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.AspNet.FriendlyUrls.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.ScriptManager.MSAjax.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.ScriptManager.WebForms.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Newtonsoft.Json.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.Optimization.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\WebGrease.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.Optimization.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Newtonsoft.Json.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Antlr3.Runtime.pdb
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.AspNet.FriendlyUrls.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\ru\System.Web.Optimization.resources.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\ru\Microsoft.AspNet.FriendlyUrls.resources.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\obj\Debug\CourseRequest_(.Net Framework).csproj.AssemblyReference.cache
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\obj\Debug\CourseRequest_(.Net Framework).csproj.CoreCompileInputs.cache
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\obj\Debug\CourseRequest_(.Net Framework).csproj.CopyComplete
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\obj\Debug\CourseRequest_(.Net Framework).dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\obj\Debug\CourseRequest_(.Net Framework).pdb
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\Microsoft.Managed.Core.CurrentVersions.targets
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\System.Buffers.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\System.Memory.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\System.Numerics.Vectors.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\EntityFramework.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\EntityFramework.SqlServer.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\EntityFramework.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\EntityFramework.SqlServer.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.Bcl.HashCode.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Npgsql.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Buffers.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Collections.Immutable.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Memory.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Numerics.Vectors.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Text.Encodings.Web.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Text.Json.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Threading.Channels.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.ValueTuple.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.Bcl.HashCode.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\Npgsql.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Buffers.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Collections.Immutable.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Memory.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Numerics.Vectors.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Text.Encodings.Web.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Text.Json.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Threading.Channels.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.ValueTuple.xml
