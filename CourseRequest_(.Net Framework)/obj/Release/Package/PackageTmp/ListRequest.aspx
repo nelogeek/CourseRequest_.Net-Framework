@@ -29,11 +29,13 @@
             <div class="row mt-3">
                 <div class="col-md-4">
                     <label for="Year">Год</label>
-                    <asp:DropDownList ID="yearSelect" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="YearSelect_SelectedIndexChanged"></asp:DropDownList>
+                    <select id="yearSelect" name="yearSelect" class="form-control" runat="server">
+                        <option value="">Весь период</option>
+                    </select>
                 </div>
                 <div class="col-md-4">
                     <label for="Stat">Статус заявки</label>
-                    <select class="form-control" id="Stat" name="Stat">
+                    <select class="form-control" id="Stat" name="Stat" runat="server">
                         <option value=""></option>
                         <option value="1">Новая</option>
                         <option value="2">В работе</option>
@@ -44,7 +46,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="Dep">Отдел</label>
-                    <input type="text" class="form-control" id="Dep" name="Dep">
+                    <input type="text" class="form-control" id="Dep" name="Dep" runat="server" />
                 </div>
             </div>
 
@@ -53,25 +55,25 @@
                     <label for="CourseBegin">Период проведения курса</label>
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="text" class="form-control date-input" id="CourseBegin_list" name="CourseBegin_list" placeholder="от" />
+                            <input type="text" class="form-control date-input" id="CourseBegin_list" name="CourseBegin_list" placeholder="от" runat="server" />
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control date-input" id="CourseEnd_list" name="CourseEnd_list" placeholder="до">
+                            <input type="text" class="form-control date-input" id="CourseEnd_list" name="CourseEnd_list" placeholder="до" runat="server" />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="FullName">ФИО обучаемого</label>
-                    <input type="text" class="form-control" id="FullName" name="FullName">
+                    <input type="text" class="form-control" id="FullName" name="FullName" runat="server" />
                 </div>
                 <div class="col-md-4">
                     <label for="RequestNumber">Номер заявки</label>
-                    <input type="text" class="form-control" id="RequestNumber" name="RequestNumber">
+                    <input type="text" class="form-control" id="RequestNumber" name="RequestNumber" runat="server" />
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col text-center">
-                    <button type="button" id="applyFiltersBtn" class="btn btn-success">Применить фильтры</button>
+                    <button type="button" id="applyFiltersBtn" class="btn btn-success" runat="server" onserverclick="FilterRequestButton_Click">Применить фильтры</button>
                 </div>
             </div>
             <!--конец фильтров-->
@@ -127,5 +129,9 @@
             </asp:Repeater>
         </div>
     </main>
+
+
+    
+
 
 </asp:Content>

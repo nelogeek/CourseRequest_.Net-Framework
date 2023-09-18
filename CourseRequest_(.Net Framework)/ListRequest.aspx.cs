@@ -2,9 +2,11 @@
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -20,28 +22,24 @@ namespace CourseRequest__.Net_Framework_
             {
                 InsertUsernameInDB();
 
-                // получение количества ВСЕХ заявок
-                requestCount = GetRequestCount();
+                
 
-                // получение и вывод ВСЕХ заявок в таблицу
-                List<Request> requests = GetRequestsFromDatabase();
+                // получение и вывод заявок в таблицу
+                List<Request> requests = GetFilteredRequests();
                 RepeaterRequests.DataSource = requests;
                 RepeaterRequests.DataBind();
 
+                // получение количества заявок
+                requestCount = requests.Count;
 
-                // вывод списка лет
+                // Добавление текущего года и трех предыдущих значений в <select>
                 int currentYear = DateTime.Now.Year;
-                int endYear = currentYear - 4;
-                int startYear = currentYear;
-                List<int> years = new List<int>();
-                for (int year = startYear; year >= endYear; year--)
+                yearSelect.Items.Add(new ListItem(currentYear.ToString(), currentYear.ToString()));
+                for (int i = 1; i <= 3; i++)
                 {
-                    years.Add(year);
+                    int previousYear = currentYear - i;
+                    yearSelect.Items.Add(new ListItem(previousYear.ToString(), previousYear.ToString()));
                 }
-                yearSelect.DataSource = years;
-                yearSelect.DataBind();
-                yearSelect.Items.Insert(0, new ListItem("Весь период", "0"));
-
             }
         }
 
@@ -58,22 +56,120 @@ namespace CourseRequest__.Net_Framework_
             }
         }
 
-        protected void YearSelect_SelectedIndexChanged(object sender, EventArgs e)
+
+
+
+        protected void FilterRequestButton_Click(object sender, EventArgs e)
         {
-            // Обработка выбора года
+            string year = yearSelect.Value;
+            string stat = Stat.Value.ToString();
+            string dep = Dep.Value.ToString();
+            string courseBegin = CourseBegin_list.Value.ToString();
+            string courseEnd = CourseEnd_list.Value.ToString();
+            string fullName = FullName.Value.ToString();
+            string requestNumber = RequestNumber.Value.ToString();
+
+            List<Request> filteredRequests = GetFilteredRequests(year, stat, dep, courseBegin, courseEnd, fullName, requestNumber);
+
+            requestCount = filteredRequests.Count;
+
+            // Обновляем RepeaterRequests данными
+            RepeaterRequests.DataSource = filteredRequests;
+            RepeaterRequests.DataBind();
         }
 
-        //// Фильтры 
-        //[System.Web.Services.WebMethod]
-        //protected List<Request> ApplyFilters(string year, string status, string department, string courseBegin, string courseEnd, string fullName, string requestNumber)
-        //{
-        //    // Здесь выполните логику применения фильтров к данным из базы данных
-        //    // И верните список данных, удовлетворяющих фильтрам
-        //
-        //    List<Request> filteredData = Request.FilterData(year, status, department, courseBegin, courseEnd, fullName, requestNumber);
-        //
-        //    return filteredData;
-        //}
+
+        protected List<Request> GetFilteredRequests(string year = "", string stat = "", string dep = "", string courseBegin = "", string courseEnd = "", string fullName = "", string requestNumber = "")
+        {
+            List<Request> requests = new List<Request>();
+
+            // Строка подключения к базе данных PostgreSQL
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+            try
+            {
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT r.id, full_name, department, position, course_name, t.type, notation, s.status, course_start, course_end, year, u.username " +
+                            "FROM public.request r " +
+                            "JOIN public.type t ON t.id = r.course_type_id " +
+                            "JOIN public.status s ON s.id = r.status_id " +
+                            "JOIN public.users u ON u.id = r.user_id " +
+                            "WHERE 1=1";
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    {
+                        // условия фильтрации
+                        if (!string.IsNullOrEmpty(year))
+                        {
+                            query += " AND (EXTRACT(YEAR FROM course_start) = " + year + " OR EXTRACT(YEAR FROM course_end) = " + year + ")";
+                        }
+                        if (!string.IsNullOrEmpty(stat))
+                        {
+                            query += " AND r.status_id = " + stat;
+                        }
+                        if (!string.IsNullOrEmpty(dep))
+                        {
+                            query += " AND department ILIKE '%" + dep + "%'";
+                        }
+                        if (!string.IsNullOrEmpty(courseBegin) && DateTime.TryParse(courseBegin, out DateTime startDate))
+                        {
+                            query += " AND course_start >= '" + startDate.ToString("yyyy-MM-dd") + "'";
+                        }
+                        if (!string.IsNullOrEmpty(courseEnd) && DateTime.TryParse(courseEnd, out DateTime endDate))
+                        {
+                            query += " AND course_end <= '" + endDate.ToString("yyyy-MM-dd") + "'";
+                        }
+                        if (!string.IsNullOrEmpty(fullName))
+                        {
+                            query += " AND full_name ILIKE '%" + fullName + "%'";
+                        }
+                        if (!string.IsNullOrEmpty(requestNumber))
+                        {
+                            query += " AND r.id = " + requestNumber;
+                        }
+
+                        query += " ORDER BY id DESC";
+
+                        //Response.Write(query);
+
+                        command.CommandText = query;
+
+                        NpgsqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            Request request = new Request
+                            {
+                                Id = reader.GetInt32(0),
+                                Full_Name = reader.GetString(1),
+                                Department = reader.GetString(2),
+                                Position = reader.GetString(3),
+                                Course_Name = reader.GetString(4),
+                                Course_Type = reader.GetString(5),
+                                Notation = reader.GetString(6),
+                                Status = reader.GetString(7),
+                                Course_Start = reader.GetDateTime(8),
+                                Course_End = reader.GetDateTime(9),
+                                Year = reader.GetInt32(10),
+                                User = reader.GetString(11)
+                            };
+
+                            requests.Add(request);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Обработка ошибок, логирование и т. д.
+                Console.WriteLine("Произошла ошибка при получении фильтрованных заявок: " + ex.Message);
+            }
+
+            return requests;
+        }
+
 
         protected List<Request> GetRequestsFromDatabase()
         {
@@ -97,9 +193,6 @@ namespace CourseRequest__.Net_Framework_
 
                     using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                     {
-                        string userName = GetUserName();
-                        command.Parameters.AddWithValue("@User", userName);
-
                         using (NpgsqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -134,7 +227,7 @@ namespace CourseRequest__.Net_Framework_
                     //Response.Write(ex.Message);
                 }
             }
-            
+
             return requests;
         }
 
@@ -198,10 +291,16 @@ namespace CourseRequest__.Net_Framework_
                     {
                         command.Parameters.AddWithValue("@Username", username);
 
-                        int count = (int)command.ExecuteScalar();
-
-                        // Если count больше нуля, пользователь уже существует
-                        return count > 0;
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            int count = Convert.ToInt32(result);
+                            return count > 0;
+                        }
+                        else
+                        {
+                            return true;
+                        }
                     }
                 }
                 catch (Exception ex)

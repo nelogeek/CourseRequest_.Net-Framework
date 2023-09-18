@@ -24,15 +24,6 @@ namespace CourseRequest__.Net_Framework_
         protected global::System.Web.UI.WebControls.LoginName UserLoginName;
 
         /// <summary>
-        /// Username элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Username;
-
-        /// <summary>
         /// Full_Name элемент управления.
         /// </summary>
         /// <remarks>

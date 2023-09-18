@@ -12,10 +12,10 @@
                     </div>
                     <div>
                         <span class="user">Пользователь:
-                            <asp:LoginName runat="server" />
+                            <asp:LoginName ID="UserLoginName" runat="server" />
                         </span>
-
                     </div>
+                    
                 </div>
                 <div class="col-auto text-center">
                     <a class="btn btn-primary" runat="server" href="~/ListRequest">Перейти к списку</a>
@@ -98,7 +98,7 @@
 
                 <div class="col text-center">
                     <input type="hidden" id="User" name="User" value="" runat="server">
-                    <button type="submit" id="createRequestButton" class="btn btn-primary btn-custom-outline-orange text-white" runat="server" onserverclick="CreateRequestButton_Click">Создать заявку</button>
+                    <button type="submit" id="createRequestButton" class="btn btn-primary text-white" runat="server" onserverclick="CreateRequestButton_Click">Создать заявку</button>
 
                 </div>
             </div>
@@ -107,7 +107,7 @@
 
                 <hr class="mt-2 mb-0" style="color: grey" />
 
-                  <asp:Repeater ID="RepeaterRequests" runat="server" ItemType="CourseRequest__.Net_Framework_.Models.Request">
+                <asp:Repeater ID="RepeaterRequests" runat="server" ItemType="CourseRequest__.Net_Framework_.Models.Request">
                     <HeaderTemplate>
                         <table class="table">
                             <thead>
@@ -127,12 +127,12 @@
                         <tbody>
                             <tr>
                                 <td class="text-center"><%# Eval("Full_Name") %></td>
-                                    <td class="text-center"><%# Eval("Position") %></td>
-                                    <td class="text-center"><%# Eval("Course_Name") %></td>
-                                    <td class="text-center"><%# Eval("Course_Type") %></td>
-                                    <td class="text-center"><%# Eval("Notation") %></td>
-                                    <td class="text-center"><a class="text-decoration-none" runat="server" href='<%# "~/Details.aspx?requestId=" + Eval("Id") %>'>Содержание</a></td>
-                                </tr>
+                                <td class="text-center"><%# Eval("Position") %></td>
+                                <td class="text-center"><%# Eval("Course_Name") %></td>
+                                <td class="text-center"><%# Eval("Course_Type") %></td>
+                                <td class="text-center"><%# Eval("Notation") %></td>
+                                <td class="text-center"><a class="text-decoration-none" runat="server" href='<%# "~/Details.aspx?requestId=" + Eval("Id") %>'>Содержание</a></td>
+                            </tr>
                         </tbody>
                     </ItemTemplate>
 

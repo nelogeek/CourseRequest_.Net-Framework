@@ -176,6 +176,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="ErrorPage.aspx" />
     <Content Include="ListRequest.aspx" />
     <Content Include="Details.aspx" />
     <Content Include="Request.aspx" />
@@ -215,7 +216,7 @@
     <Content Include="Scripts\jquery-3.7.0.slim.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\Others\btnCreateRequest.js" />
+    <Content Include="Scripts\Others\addYearSelect.js" />
     <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
@@ -247,6 +248,13 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ErrorPage.aspx.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPage.aspx.designer.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ListRequest.aspx.cs">
       <DependentUpon>ListRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

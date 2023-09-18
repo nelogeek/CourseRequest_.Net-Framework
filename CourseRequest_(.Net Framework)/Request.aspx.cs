@@ -23,19 +23,19 @@ namespace CourseRequest__.Net_Framework_
         {
             if (!IsPostBack)
             {
-                string username = Page.User.Identity.Name; // Замените YourLoginNameControlID на фактический ID элемента <asp:LoginName>
-                Username.Value = username;
-
+               
                 InsertUsernameInDB();
 
-                // получение количества НОВЫХ заявок
-                requestCount = GetRequestCount();
-
+                
                 // получение и вывод всех НОВЫХ заявок в таблицу
                 List<Request> requests = GetRequestsFromDatabase();
                 RepeaterRequests.DataSource = requests;
                 RepeaterRequests.DataBind();
-                
+
+
+                // получение количества НОВЫХ заявок
+                requestCount = requests.Count;
+
             }
         }
 

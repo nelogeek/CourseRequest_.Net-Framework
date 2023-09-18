@@ -15,9 +15,7 @@
                             <asp:LoginName ID="UserLoginName" runat="server" />
                         </span>
                     </div>
-                    <div>
-                        <input type="text" class="form-control" id="Username" name="Username" placeholder="Введите значение" runat="server" required />
-                    </div>
+                    
                 </div>
                 <div class="col-auto text-center">
                     <a class="btn btn-primary" runat="server" href="~/ListRequest">Перейти к списку</a>
@@ -100,7 +98,7 @@
 
                 <div class="col text-center">
                     <input type="hidden" id="User" name="User" value="" runat="server">
-                    <button type="submit" id="createRequestButton" class="btn btn-primary btn-custom-outline-orange text-white" runat="server" onserverclick="CreateRequestButton_Click">Создать заявку</button>
+                    <button type="submit" id="createRequestButton" class="btn btn-primary text-white" runat="server" onserverclick="CreateRequestButton_Click">Создать заявку</button>
 
                 </div>
             </div>
