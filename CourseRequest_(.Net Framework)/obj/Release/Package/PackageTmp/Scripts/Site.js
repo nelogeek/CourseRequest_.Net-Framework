@@ -29,6 +29,3 @@ $(document).ready(function () {
 
 
 
-
-
-

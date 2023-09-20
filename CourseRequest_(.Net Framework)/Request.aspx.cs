@@ -17,16 +17,20 @@ namespace CourseRequest__.Net_Framework_
 {
     public partial class _Request : Page
     {
-        protected int requestCount; 
+        protected int requestCount;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            int role = GetRoleByUsername();
+            if (role != 1)
+            {
+                Response.Redirect($"~/ListRequest.aspx");
+
+            }
+
             if (!IsPostBack)
             {
-               
-                InsertUsernameInDB();
 
-                
                 // получение и вывод всех НОВЫХ заявок в таблицу
                 List<Request> requests = GetRequestsFromDatabase();
                 RepeaterRequests.DataSource = requests;
@@ -40,53 +44,102 @@ namespace CourseRequest__.Net_Framework_
         }
 
 
-        protected void CreateRequestButton_Click(object sender, EventArgs e)
+
+        protected int GetRoleByUsername()
         {
-            // Получаем значения из элементов формы
-            string fullName = Full_Name.Value;
-            
-            string department = Department.Value;
-            string position = Position.Value;
-            string courseName = Course_Name.Value;
-            int courseType = Convert.ToInt32(Course_Type.Value); 
-            string notation = Notation.Value;
-            int status = Convert.ToInt32(Status.Value);
-            DateTime courseStart = DateTime.Parse(Course_Start.Value);
-            DateTime courseEnd = DateTime.Parse(Course_End.Value);
-            int year = courseStart.Year; 
-            int user = GetUserId(); // Имя пользователя Windows
-            
-            // Строка подключения к базе данных PostgreSQL
-            string connectionString = ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
-            
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            string username = GetUserName();
+            int role = -1;
+
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+
+            try
             {
-                connection.Open();
-            
-                // SQL-запрос для вставки данных в таблицу 'request'
-                string sql = @"INSERT INTO public.request (full_name, department, position, course_name, course_type_id, notation, status_id, course_start, course_end, year, user_id) 
-                       VALUES (@FullName, @Department, @Position, @CourseName, @CourseType, @Notation, @Status, @CourseStart, @CourseEnd, @Year, @User)";
-            
-                using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@FullName", fullName);
-                    command.Parameters.AddWithValue("@Department", department);
-                    command.Parameters.AddWithValue("@Position", position);
-                    command.Parameters.AddWithValue("@CourseName", courseName);
-                    command.Parameters.AddWithValue("@CourseType", courseType);
-                    command.Parameters.AddWithValue("@Notation", notation);
-                    command.Parameters.AddWithValue("@Status", status);
-                    command.Parameters.AddWithValue("@CourseStart", courseStart);
-                    command.Parameters.AddWithValue("@CourseEnd", courseEnd);
-                    command.Parameters.AddWithValue("@Year", year);
-                    command.Parameters.AddWithValue("@User", user);
-            
-                    command.ExecuteNonQuery();
+                    connection.Open();
+
+                    string query = "SELECT role_id FROM users WHERE username = @Username";
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", username);
+
+                        using (NpgsqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                role = reader.GetInt32(0);
+                            }
+                        }
+                    }
                 }
             }
-            
-            // После вставки данных, вы можете перезагрузить страницу или выполнить другие необходимые действия.
-            Response.Redirect(Request.RawUrl); // Этот код перезагрузит текущую страницу.
+            catch (Exception ex)
+            {
+                Console.WriteLine("Произошла ошибка при получении роли пользователя: " + ex.Message);
+            }
+
+            return role;
+        }
+
+
+        protected void CreateRequestButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Получаем значения из элементов формы
+                string fullName = Full_Name.Value;
+
+                string department = Department.Value;
+                string position = Position.Value;
+                string courseName = Course_Name.Value;
+                int courseType = Convert.ToInt32(Course_Type.Value);
+                string notation = Notation.Value;
+                int status = Convert.ToInt32(Status.Value);
+                DateTime courseStart = DateTime.Parse(Course_Start.Value);
+                DateTime courseEnd = DateTime.Parse(Course_End.Value);
+                int year = courseStart.Year;
+                string user = GetUserName(); // Имя пользователя Windows
+
+                // Строка подключения к базе данных PostgreSQL
+                string connectionString = ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // SQL-запрос для вставки данных в таблицу 'request'
+                    string sql = @"INSERT INTO public.request (full_name, department, position, course_name, course_type_id, notation, status_id, course_start, course_end, year, creator) 
+                       VALUES (@FullName, @Department, @Position, @CourseName, @CourseType, @Notation, @Status, @CourseStart, @CourseEnd, @Year, @User)";
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@FullName", fullName);
+                        command.Parameters.AddWithValue("@Department", department);
+                        command.Parameters.AddWithValue("@Position", position);
+                        command.Parameters.AddWithValue("@CourseName", courseName);
+                        command.Parameters.AddWithValue("@CourseType", courseType);
+                        command.Parameters.AddWithValue("@Notation", notation);
+                        command.Parameters.AddWithValue("@Status", status);
+                        command.Parameters.AddWithValue("@CourseStart", courseStart);
+                        command.Parameters.AddWithValue("@CourseEnd", courseEnd);
+                        command.Parameters.AddWithValue("@Year", year);
+                        command.Parameters.AddWithValue("@User", user);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                // После вставки данных, вы можете перезагрузить страницу или выполнить другие необходимые действия.
+                Response.Redirect(Request.RawUrl); // Этот код перезагрузит текущую страницу.
+            }
+            catch (FormatException ex)
+            {
+                // Обработка ошибки парсинга
+                Console.WriteLine("Неправильно введены значения в поля: " + ex.Message);
+                // Здесь вы можете предпринять необходимые действия, например, вывести сообщение об ошибке пользователю или установить значение по умолчанию.
+            }
+            catch (Exception) { }
         }
 
         protected void InsertUsernameInDB()
@@ -223,11 +276,11 @@ namespace CourseRequest__.Net_Framework_
                     connection.Open();
 
                     // SQL-запрос для извлечения данных из таблицы 'Request'
-                    string sql = "SELECT r.id, full_name, department, position, course_name, t.type, notation, s.status, course_start, course_end, year, u.username " +
+                    string sql = "SELECT r.id, full_name, department, position, course_name, t.type, notation, s.status, course_start, course_end, year, creator " +
                         "FROM public.request r " +
                         "JOIN public.type t ON t.id = r.course_type_id " +
-                        "JOIN public.status s ON s.id = r.status_id JOIN public.users u ON u.id = r.user_id " +
-                        "WHERE s.status = 'Новая' AND u.username = @User " +
+                        "JOIN public.status s ON s.id = r.status_id " +
+                        "WHERE s.status = 'Новая' AND creator = @User " +
                         "ORDER BY id DESC";
 
                     using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
@@ -252,13 +305,13 @@ namespace CourseRequest__.Net_Framework_
                                     Course_Start = reader.GetDateTime(reader.GetOrdinal("course_start")),
                                     Course_End = reader.GetDateTime(reader.GetOrdinal("course_end")),
                                     Year = reader.GetInt32(reader.GetOrdinal("year")),
-                                    User = reader.GetString(reader.GetOrdinal("username"))
-                                    
+                                    User = reader.GetString(reader.GetOrdinal("creator"))
+
                                 };
 
                                 requests.Add(request);
 
-                                }
+                            }
                         }
                     }
                 }
@@ -274,11 +327,12 @@ namespace CourseRequest__.Net_Framework_
         }
 
 
+
         public int GetRequestCount()
         {
             // Строка подключения к базе данных PostgreSQL
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
-            
+
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 try
@@ -289,8 +343,7 @@ namespace CourseRequest__.Net_Framework_
                     string sql = "SELECT CAST(COUNT(*) AS INT) " +
                         "FROM public.request r " +
                         "JOIN public.status s ON s.id = r.status_id " +
-                        "JOIN public.users u ON u.id = r.user_id " +
-                        "WHERE s.status = 'Новая' AND u.username = @User";
+                        "WHERE s.status = 'Новая' AND r.creator = @User";
 
                     using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                     {
@@ -299,10 +352,10 @@ namespace CourseRequest__.Net_Framework_
                         //Response.Write(userName);
 
                         int count = (int)command.ExecuteScalar();
-                        
+
                         return count;
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {

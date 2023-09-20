@@ -54,7 +54,7 @@
             <%: Scripts.Render("~/Scripts/Site.js") %>
         </asp:PlaceHolder>
         <asp:PlaceHolder runat="server">
-            <%: Scripts.Render("~/Scripts/Others/addYearSelect.js") %>
+            <%: Scripts.Render("~/Scripts/Others/changeCheckBox.js") %>
         </asp:PlaceHolder>
         
     </form>

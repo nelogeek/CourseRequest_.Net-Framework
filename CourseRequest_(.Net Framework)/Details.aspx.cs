@@ -26,6 +26,13 @@ namespace CourseRequest__.Net_Framework_
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            int role = GetRoleByUsername();
+            if (role == 2)
+            {
+                updateRequestButton.Visible = true;
+                Status.Disabled = false;
+            }
+
             if (Request.QueryString["requestId"] != null)
             {
                 requestId = Convert.ToInt32(Request.QueryString["requestId"]);
@@ -59,6 +66,50 @@ namespace CourseRequest__.Net_Framework_
                 }
 
             }
+        }
+
+        protected string GetUserName()
+        {
+            string userName = Page.User.Identity.Name;
+            return userName;
+        }
+
+
+        protected int GetRoleByUsername()
+        {
+            string username = GetUserName();
+            int role = -1;
+
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+
+            try
+            {
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT role_id FROM users WHERE username = @Username";
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", username);
+
+                        using (NpgsqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                role = reader.GetInt32(0);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Произошла ошибка при получении роли пользователя: " + ex.Message);
+            }
+
+            return role;
         }
 
         protected void UpdateRequestButton_Click(object sender, EventArgs e)
@@ -144,8 +195,7 @@ namespace CourseRequest__.Net_Framework_
                     connection.Open();
 
                     // SQL-запрос для извлечения данных из таблицы 'Request'
-                    string sql = "SELECT r.id, r.full_name, r.department, r.position, r.course_name, r.course_type_id, r.notation, r.status_id, r.course_start, r.course_end, r.year, u.username FROM public.request r " +
-                        "JOIN users u  ON u.id = r.user_id " +
+                    string sql = "SELECT r.id, r.full_name, r.department, r.position, r.course_name, r.course_type_id, r.notation, r.status_id, r.course_start, r.course_end, r.year, creator FROM public.request r " +
                         "Where r.Id = @reqId";
 
                     using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
@@ -169,7 +219,7 @@ namespace CourseRequest__.Net_Framework_
                                     Course_Start = reader.GetDateTime(reader.GetOrdinal("course_start")),
                                     Course_End = reader.GetDateTime(reader.GetOrdinal("course_end")),
                                     Year = reader.GetInt32(reader.GetOrdinal("year")),
-                                    User = reader.GetString(reader.GetOrdinal("username"))
+                                    User = reader.GetString(reader.GetOrdinal("creator"))
 
                                 };
 

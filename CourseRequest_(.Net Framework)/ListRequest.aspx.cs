@@ -3,6 +3,7 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.EnterpriseServices.CompensatingResourceManager;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,12 +19,15 @@ namespace CourseRequest__.Net_Framework_
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            int role = GetRoleByUsername();
+            if (role != 1)
+            {
+                NewRequestBtn.Visible = false;
+            }
+
             if (!IsPostBack)
             {
-                InsertUsernameInDB();
-
                 
-
                 // получение и вывод заявок в таблицу
                 List<Request> requests = GetFilteredRequests();
                 RepeaterRequests.DataSource = requests;
@@ -43,6 +47,44 @@ namespace CourseRequest__.Net_Framework_
             }
         }
 
+
+        protected int GetRoleByUsername()
+        {
+            string username = GetUserName();
+            int role = -1;
+
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+
+            try
+            {
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT role_id FROM users WHERE username = @Username";
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", username);
+
+                        using (NpgsqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                role = reader.GetInt32(0);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Произошла ошибка при получении роли пользователя: " + ex.Message);
+            }
+
+            return role;
+        }
+
         protected void RepeaterRequests_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "ShowDetails")
@@ -50,7 +92,7 @@ namespace CourseRequest__.Net_Framework_
                 int requestId = Convert.ToInt32(e.CommandArgument);
                 // Здесь вы можете получить данные о выбранной заявке по requestId
 
-                Response.Write(requestId);
+                //Response.Write(requestId);
                 // Перенаправление на страницу Detail.aspx с передачей параметров
                 Response.Redirect($"~/Details.aspx?requestId={requestId}");
             }
@@ -67,19 +109,28 @@ namespace CourseRequest__.Net_Framework_
             string courseBegin = CourseBegin_list.Value.ToString();
             string courseEnd = CourseEnd_list.Value.ToString();
             string fullName = FullName.Value.ToString();
-            string requestNumber = RequestNumber.Value.ToString();
+            string courseType = Course_Type_list.Value.ToString();
+            string courseName = Course_Name.Value.ToString();
+            string onlyMyReq = OnlyMyReq.Value.ToString();
 
-            List<Request> filteredRequests = GetFilteredRequests(year, stat, dep, courseBegin, courseEnd, fullName, requestNumber);
+            List<Request> filteredRequests = GetFilteredRequests(year, stat, dep, courseBegin, courseEnd, fullName, courseType, courseName, onlyMyReq);
 
             requestCount = filteredRequests.Count;
+
+            //Response.Write($"{year}, {stat}, {dep}, {courseBegin}, {courseEnd}, {fullName}, {courseType}, {courseName}, {checkbox}");
+
+            //Response.Write(OnlyMyReqCheckbox.Checked);
 
             // Обновляем RepeaterRequests данными
             RepeaterRequests.DataSource = filteredRequests;
             RepeaterRequests.DataBind();
+
+            // Обновляем UpdatePanel после обновления данных
+            UpdatePanel1.Update();
         }
 
 
-        protected List<Request> GetFilteredRequests(string year = "", string stat = "", string dep = "", string courseBegin = "", string courseEnd = "", string fullName = "", string requestNumber = "")
+        protected List<Request> GetFilteredRequests(string year = "", string stat = "", string dep = "", string courseBegin = "", string courseEnd = "", string fullName = "", string courseType = "", string courseName = "", string onlyMyReq = "")
         {
             List<Request> requests = new List<Request>();
 
@@ -87,15 +138,16 @@ namespace CourseRequest__.Net_Framework_
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
             try
             {
+                string username = GetUserName();
+
                 using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    string query = "SELECT r.id, full_name, department, position, course_name, t.type, notation, s.status, course_start, course_end, year, u.username " +
+                    string query = "SELECT r.id, full_name, department, position, course_name, t.type, notation, s.status, course_start, course_end, year, creator " +
                             "FROM public.request r " +
                             "JOIN public.type t ON t.id = r.course_type_id " +
                             "JOIN public.status s ON s.id = r.status_id " +
-                            "JOIN public.users u ON u.id = r.user_id " +
                             "WHERE 1=1";
 
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
@@ -103,31 +155,48 @@ namespace CourseRequest__.Net_Framework_
                         // условия фильтрации
                         if (!string.IsNullOrEmpty(year))
                         {
-                            query += " AND (EXTRACT(YEAR FROM course_start) = " + year + " OR EXTRACT(YEAR FROM course_end) = " + year + ")";
+                            query += " AND (EXTRACT(YEAR FROM course_start) = @Year OR EXTRACT(YEAR FROM course_end) = @Year)";
+                            command.Parameters.AddWithValue("@Year", year);
                         }
                         if (!string.IsNullOrEmpty(stat))
                         {
-                            query += " AND r.status_id = " + stat;
+                            query += " AND r.status_id = @Stat";
+                            command.Parameters.AddWithValue("@Stat", stat);
                         }
                         if (!string.IsNullOrEmpty(dep))
                         {
-                            query += " AND department ILIKE '%" + dep + "%'";
+                            query += " AND department ILIKE @Dep";
+                            command.Parameters.AddWithValue("@Dep", "%" + dep + "%");
                         }
                         if (!string.IsNullOrEmpty(courseBegin) && DateTime.TryParse(courseBegin, out DateTime startDate))
                         {
-                            query += " AND course_start >= '" + startDate.ToString("yyyy-MM-dd") + "'";
+                            query += " AND course_start >= @StartDate";
+                            command.Parameters.AddWithValue("@StartDate", startDate.ToString("yyyy-MM-dd"));
                         }
                         if (!string.IsNullOrEmpty(courseEnd) && DateTime.TryParse(courseEnd, out DateTime endDate))
                         {
-                            query += " AND course_end <= '" + endDate.ToString("yyyy-MM-dd") + "'";
+                            query += " AND course_end <= @EndDate";
+                            command.Parameters.AddWithValue("@EndDate", endDate.ToString("yyyy-MM-dd"));
                         }
                         if (!string.IsNullOrEmpty(fullName))
                         {
-                            query += " AND full_name ILIKE '%" + fullName + "%'";
+                            query += " AND full_name ILIKE @FullName";
+                            command.Parameters.AddWithValue("@FullName", "%" + fullName + "%");
                         }
-                        if (!string.IsNullOrEmpty(requestNumber))
+                        if (!string.IsNullOrEmpty(courseType))
                         {
-                            query += " AND r.id = " + requestNumber;
+                            query += " AND r.course_type_id = @CourseType";
+                            command.Parameters.AddWithValue("@CourseType", courseType);
+                        }
+                        if (!string.IsNullOrEmpty(courseName))
+                        {
+                            query += " AND course_name ILIKE @CourseName";
+                            command.Parameters.AddWithValue("@CourseName", "%" + courseName + "%");
+                        }
+                        if (!string.IsNullOrEmpty(onlyMyReq))
+                        {
+                            query += " AND creator = @Username";
+                            command.Parameters.AddWithValue("@Username", username);
                         }
 
                         query += " ORDER BY id DESC";
@@ -170,6 +239,8 @@ namespace CourseRequest__.Net_Framework_
             return requests;
         }
 
+       
+
 
         protected List<Request> GetRequestsFromDatabase()
         {
@@ -185,10 +256,10 @@ namespace CourseRequest__.Net_Framework_
                     connection.Open();
 
                     // SQL-запрос для извлечения данных из таблицы 'Request'
-                    string sql = "SELECT r.id, full_name, department, position, course_name, t.type, notation, s.status, course_start, course_end, year, u.username " +
+                    string sql = "SELECT r.id, full_name, department, position, course_name, t.type, notation, s.status, course_start, course_end, year, creator " +
                         "FROM public.request r " +
                         "JOIN public.type t ON t.id = r.course_type_id " +
-                        "JOIN public.status s ON s.id = r.status_id JOIN public.users u ON u.id = r.user_id " +
+                        "JOIN public.status s ON s.id = r.status_id " +
                         "ORDER BY id DESC";
 
                     using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
@@ -210,7 +281,7 @@ namespace CourseRequest__.Net_Framework_
                                     Course_Start = reader.GetDateTime(reader.GetOrdinal("course_start")),
                                     Course_End = reader.GetDateTime(reader.GetOrdinal("course_end")),
                                     Year = reader.GetInt32(reader.GetOrdinal("year")),
-                                    User = reader.GetString(reader.GetOrdinal("username"))
+                                    User = reader.GetString(reader.GetOrdinal("creator"))
 
                                 };
 

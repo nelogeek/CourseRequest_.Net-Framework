@@ -15,6 +15,15 @@ namespace CourseRequest__.Net_Framework_
     {
 
         /// <summary>
+        /// NewRequestBtn элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor NewRequestBtn;
+
+        /// <summary>
         /// yearSelect элемент управления.
         /// </summary>
         /// <remarks>
@@ -69,13 +78,31 @@ namespace CourseRequest__.Net_Framework_
         protected global::System.Web.UI.HtmlControls.HtmlInputText FullName;
 
         /// <summary>
-        /// RequestNumber элемент управления.
+        /// Course_Type_list элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText RequestNumber;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect Course_Type_list;
+
+        /// <summary>
+        /// OnlyMyReq элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect OnlyMyReq;
+
+        /// <summary>
+        /// Course_Name элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Course_Name;
 
         /// <summary>
         /// applyFiltersBtn элемент управления.
@@ -85,6 +112,15 @@ namespace CourseRequest__.Net_Framework_
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton applyFiltersBtn;
+
+        /// <summary>
+        /// UpdatePanel1 элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
 
         /// <summary>
         /// RepeaterRequests элемент управления.

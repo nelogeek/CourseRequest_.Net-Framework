@@ -2,6 +2,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
+
     <main>
         <div class="container-fluid">
             <div class="row mt-3">
@@ -17,7 +18,7 @@
                     </div>
                 </div>
                 <div class="col-auto text-center">
-                    <a class="btn btn-primary" runat="server" href="~/Request">Перейти к заявке</a>
+                    <a class="btn btn-primary" id="NewRequestBtn" runat="server" href="~/Request">Новая заявка</a>
                 </div>
             </div>
         </div>
@@ -46,7 +47,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="Dep">Отдел</label>
-                    <input type="text" class="form-control" id="Dep" name="Dep" runat="server" />
+                    <input type="text" class="form-control" id="Dep" name="Dep" runat="server" autocomplete="off" />
                 </div>
             </div>
 
@@ -55,23 +56,53 @@
                     <label for="CourseBegin">Период проведения курса</label>
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="text" class="form-control date-input" id="CourseBegin_list" name="CourseBegin_list" placeholder="от" runat="server" />
+                            <input type="text" class="form-control date-input" id="CourseBegin_list" name="CourseBegin_list" placeholder="от" runat="server" autocomplete="off" />
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control date-input" id="CourseEnd_list" name="CourseEnd_list" placeholder="до" runat="server" />
+                            <input type="text" class="form-control date-input" id="CourseEnd_list" name="CourseEnd_list" placeholder="до" runat="server" autocomplete="off" />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="FullName">ФИО обучаемого</label>
-                    <input type="text" class="form-control" id="FullName" name="FullName" runat="server" />
+                    <input type="text" class="form-control" id="FullName" name="FullName" runat="server" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
-                    <label for="RequestNumber">Номер заявки</label>
-                    <input type="text" class="form-control" id="RequestNumber" name="RequestNumber" runat="server" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Тип курса</label>
+                            <select class="form-control" id="Course_Type_list" name="Course_Type_list" runat="server">
+                                <option value="">Все типы</option>
+                                <option value="1">Базовый</option>
+                                <option value="2">Продвинутый</option>
+                                <option value="3">Для администраторов</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Показать</label>
+                            <select class="form-control" id="OnlyMyReq" name="OnlyMyReq" runat="server">
+                                <option value="">Все заявки</option>
+                                <option value="1">Только мои</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="row mt-3">
+
+            <div class="row mt-3 mb-4">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4 ">
+                    <label>Наименование курса</label>
+                    <input type="text" class="form-control" id="Course_Name" name="Course_Name" runat="server" autocomplete="off" />
+                </div>
+                <div class="col-md-4">
+                </div>
+
+            </div>
+            <div class="row mt-3 ">
+
                 <div class="col text-center">
                     <button type="button" id="applyFiltersBtn" class="btn btn-success" runat="server" onserverclick="FilterRequestButton_Click">Применить фильтры</button>
                 </div>
@@ -89,49 +120,54 @@
 
             <hr class="mt-2 mb-0" style="color: grey" />
 
-            <asp:Repeater ID="RepeaterRequests" runat="server" ItemType="CourseRequest__.Net_Framework_.Models.Request">
-                <HeaderTemplate>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Номер заявки</th>
-                                <th class="text-center">Статус</th>
-                                <th class="text-center">ФИО обучаемого</th>
-                                <th class="text-center">Наименование курса</th>
-                                <th class="text-center">Тип курса</th>
-                                <th class="text-center">Дата обучения</th>
-                                <th class="text-center"></th>
-                            </tr>
-                        </thead>
-                </HeaderTemplate>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <asp:Repeater ID="RepeaterRequests" runat="server" ItemType="CourseRequest__.Net_Framework_.Models.Request">
+                        <HeaderTemplate>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Номер заявки</th>
+                                        <th class="text-center">Статус</th>
+                                        <th class="text-center">ФИО обучаемого</th>
+                                        <th class="text-center">Наименование курса</th>
+                                        <th class="text-center">Тип курса</th>
+                                        <th class="text-center">Дата обучения</th>
+                                        <th class="text-center"></th>
+                                    </tr>
+                                </thead>
+                        </HeaderTemplate>
 
 
-                <ItemTemplate>
-                    <tbody>
-                        <tr>
-                            <td class="text-center"><%# Eval("Id") %></td>
-                            <td class="text-center"><%# Eval("Status") %></td>
-                            <td class="text-center"><%# Eval("Full_Name") %></td>
-                            <td class="text-center"><%# Eval("Course_Name") %></td>
-                            <td class="text-center"><%# Eval("Course_Type") %></td>
-                            <td class="text-center"><%# Convert.ToDateTime(Eval("Course_Start")).ToString("dd.MM.yyyy") %> - <%# Convert.ToDateTime(Eval("Course_End")).ToString("dd.MM.yyyy") %></td>
-                            <td class="text-center">
-                                <a class="text-decoration-none" runat="server" href='<%# "~/Details.aspx?requestId=" + Eval("Id") %>'>Содержание</a>
-                            </td>
+                        <ItemTemplate>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center"><%# Eval("Id") %></td>
+                                    <td class="text-center"><%# Eval("Status") %></td>
+                                    <td class="text-center"><%# Eval("Full_Name") %></td>
+                                    <td class="text-center"><%# Eval("Course_Name") %></td>
+                                    <td class="text-center"><%# Eval("Course_Type") %></td>
+                                    <td class="text-center"><%# Convert.ToDateTime(Eval("Course_Start")).ToString("dd.MM.yyyy") %> - <%# Convert.ToDateTime(Eval("Course_End")).ToString("dd.MM.yyyy") %></td>
+                                    <td class="text-center">
+                                        <a class="text-decoration-none" runat="server" href='<%# "~/Details.aspx?requestId=" + Eval("Id") %>'>Содержание</a>
+                                    </td>
 
-                        </tr>
-                    </tbody>
-                </ItemTemplate>
+                                </tr>
+                            </tbody>
+                        </ItemTemplate>
 
-                <FooterTemplate>
-                    </table>
-                </FooterTemplate>
-            </asp:Repeater>
+                        <FooterTemplate>
+                            </table>
+                        </FooterTemplate>
+                    </asp:Repeater>
+
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
     </main>
 
 
-    
+
 
 
 </asp:Content>

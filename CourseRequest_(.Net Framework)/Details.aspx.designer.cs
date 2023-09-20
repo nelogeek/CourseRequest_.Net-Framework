@@ -15,6 +15,15 @@ namespace CourseRequest__.Net_Framework_
     {
 
         /// <summary>
+        /// BackBtn элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor BackBtn;
+
+        /// <summary>
         /// Full_Name элемент управления.
         /// </summary>
         /// <remarks>
@@ -102,15 +111,15 @@ namespace CourseRequest__.Net_Framework_
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected new global::System.Web.UI.HtmlControls.HtmlInputHidden User;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden User;
 
         /// <summary>
-        /// createRequestButton элемент управления.
+        /// updateRequestButton элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton createRequestButton;
+        protected global::System.Web.UI.HtmlControls.HtmlButton updateRequestButton;
     }
 }
