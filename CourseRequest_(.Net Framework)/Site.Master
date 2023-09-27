@@ -18,7 +18,7 @@
 </head>
 <body>
     <form runat="server">
-        <asp:ScriptManager runat="server">
+       <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
                 <%--Framework Scripts--%>
@@ -44,6 +44,8 @@
             </asp:ContentPlaceHolder>
         </div>
 
+         
+
         <asp:PlaceHolder runat="server">
             <%: Scripts.Render("~/Scripts/bootstrap.js") %>
         </asp:PlaceHolder>
@@ -53,9 +55,7 @@
         <asp:PlaceHolder runat="server">
             <%: Scripts.Render("~/Scripts/Site.js") %>
         </asp:PlaceHolder>
-        <asp:PlaceHolder runat="server">
-            <%: Scripts.Render("~/Scripts/Others/changeCheckBox.js") %>
-        </asp:PlaceHolder>
+       
         
     </form>
 

@@ -30,7 +30,7 @@ namespace CourseRequest__.Net_Framework_
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Full_Name;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect Full_Name;
 
         /// <summary>
         /// Course_Name элемент управления.

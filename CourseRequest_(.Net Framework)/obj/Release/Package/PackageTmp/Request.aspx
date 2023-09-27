@@ -1,7 +1,8 @@
-﻿<%@ Page Title="Создать заявку" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Request.aspx.cs" Inherits="CourseRequest__.Net_Framework_._Request" %>
+﻿<%@ Page Title="Создать заявку" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Request.aspx.cs" Inherits="CourseRequest__.Net_Framework_._Request"  %>
+
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
+    
 
     <main>
         <div class="container-fluid">
@@ -147,6 +148,12 @@
 
 
 
+
+
 </asp:Content>
+
+
+
+
 
 

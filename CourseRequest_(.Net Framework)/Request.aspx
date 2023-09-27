@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="Создать заявку" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Request.aspx.cs" Inherits="CourseRequest__.Net_Framework_._Request" %>
 
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
 
@@ -15,7 +16,7 @@
                             <asp:LoginName ID="UserLoginName" runat="server" />
                         </span>
                     </div>
-                    
+
                 </div>
                 <div class="col-auto text-center">
                     <a class="btn btn-primary" runat="server" href="~/ListRequest">Перейти к списку</a>
@@ -29,8 +30,7 @@
             <div class="row mt-2 mb-4 justify-content-center">
                 <section class="col-md-4" aria-labelledby="FullName">
                     <label>ФИО обучаемого</label>
-                    <input type="text" class="form-control col-md-12" id="Full_Name" name="Full_Name" placeholder="Введите значение" runat="server" required autocomplete="off"/>
-                    <div id="similarNamesList" class="list-group" style="position: absolute; z-index: 1; display: none; max-height: calc(100vh / 3); overflow-y: auto; border: 2px solid #e2e2e2;"></div>
+                    <select class="form-control" id="Full_Name" name="Full_Name" runat="server" ></select>
                 </section>
 
                 <section class="col-md-4" aria-labelledby="CourseName">
@@ -53,7 +53,7 @@
             <div class="row mb-4 justify-content-between">
                 <section class="col-md-4" aria-labelledby="Department">
                     <label>Отдел</label>
-                    <input type="text" class="form-control" id="Department" name="Department" placeholder="Введите значение" runat="server" required autocomplete="off"/>
+                    <input type="text" class="form-control" id="Department" name="Department" placeholder="Введите значение" runat="server" required autocomplete="off" readonly="readonly"/>
                 </section>
                 <section class="col-md-4" aria-labelledby="CourseType">
                     <label>Тип курса</label>
@@ -67,10 +67,10 @@
                     <label>Период проведения курса</label>
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="text" class="form-control date-start date-input" id="Course_Start" name="Course_Start" placeholder="от" runat="server" required autocomplete="off"/>
+                            <input type="text" class="form-control date-start date-input" id="Course_Start" name="Course_Start" placeholder="от" runat="server" required autocomplete="off" />
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control date-input" id="Course_End" name="Course_End" placeholder="до" runat="server" required autocomplete="off"/>
+                            <input type="text" class="form-control date-input" id="Course_End" name="Course_End" placeholder="до" runat="server" required autocomplete="off" />
                         </div>
                     </div>
                 </section>
@@ -80,7 +80,7 @@
 
                 <section class="col-md-4" aria-labelledby="Position">
                     <label>Должность</label>
-                    <input type="text" class="form-control" id="Position" name="Position" placeholder="Введите значение" runat="server" required autocomplete="off"/>
+                    <input type="text" class="form-control" id="Position" name="Position" placeholder="Введите значение" runat="server" required autocomplete="off" readonly="readonly"/>
                 </section>
                 <section class="col-md-4" aria-labelledby="Notation">
                     <label>Примечание</label>
@@ -89,7 +89,7 @@
 
             </div>
 
-            
+
             <div class="row">
 
                 <div class="col text-center">
@@ -147,6 +147,12 @@
 
 
 
+
+
 </asp:Content>
+
+
+
+
 
 

@@ -89,3 +89,15 @@ C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framew
 C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Threading.Channels.xml
 C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.ValueTuple.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.Helpers.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.Mvc.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.Razor.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.WebPages.Deployment.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.WebPages.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.WebPages.Razor.dll
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.Helpers.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.Mvc.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.Razor.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.WebPages.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.WebPages.Deployment.xml
+C:\Users\lokot\Desktop\CourseRequest_(.Net Framework)\CourseRequest_(.Net Framework)\bin\System.Web.WebPages.Razor.xml

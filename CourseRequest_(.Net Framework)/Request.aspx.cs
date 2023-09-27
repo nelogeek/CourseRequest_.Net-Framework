@@ -12,6 +12,13 @@ using System.Web.Routing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Net;
+using System.Web.Services;
+using System.Data.SqlClient;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
+using System.Web.Script.Services;
+using System.Web.Profile;
+using System.Web.Mvc;
 
 namespace CourseRequest__.Net_Framework_
 {
@@ -19,6 +26,7 @@ namespace CourseRequest__.Net_Framework_
     {
         protected int requestCount;
 
+        [AllowAnonymous]
         protected void Page_Load(object sender, EventArgs e)
         {
             int role = GetRoleByUsername();
@@ -40,8 +48,52 @@ namespace CourseRequest__.Net_Framework_
                 // получение количества НОВЫХ заявок
                 requestCount = requests.Count;
 
+                // получение ФИО сотрудников
+                GetFioDropDownList();
             }
         }
+
+        protected void GetFioDropDownList()
+        {
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString_MSSQL"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Выполните SQL-запрос для получения данных для выпадающего списка
+                string query = "SELECT FIO, Dept, Position FROM custom_view_employees"; // Замените на ваш запрос
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Очистите существующие элементы в списке
+                Full_Name.Items.Clear();
+
+                // Добавьте пустой элемент (первый элемент списка)
+                Full_Name.Items.Add(new ListItem("", ""));
+
+                // Добавьте элементы в список на основе данных из базы данных
+                while (reader.Read())
+                {
+                    string fio = reader["FIO"].ToString();
+                    string dept = reader["Dept"].ToString();
+                    string position = reader["Position"].ToString();
+
+                    // Создайте элемент списка с атрибутами data-dept и data-position
+                    ListItem listItem = new ListItem(fio, fio);
+                    listItem.Attributes["data-dept"] = dept;
+                    listItem.Attributes["data-position"] = position;
+
+                    Full_Name.Items.Add(listItem);
+                }
+
+                connection.Close();
+            }
+        }
+
+
+
+
 
 
 

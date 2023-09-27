@@ -30,9 +30,7 @@
             <div class="row mt-3">
                 <div class="col-md-4">
                     <label for="Year">Год</label>
-                    <select id="yearSelect" name="yearSelect" class="form-control" runat="server">
-                        <option value="">Весь период</option>
-                    </select>
+                    <select id="yearSelect" name="yearSelect" class="form-control" runat="server"></select>
                 </div>
                 <div class="col-md-4">
                     <label for="Stat">Статус заявки</label>
@@ -47,7 +45,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="Dep">Отдел</label>
-                    <input type="text" class="form-control" id="Dep" name="Dep" runat="server" autocomplete="off" />
+                    <select class="form-control" id="Department" name="Department" runat="server" ></select>
                 </div>
             </div>
 
@@ -64,8 +62,8 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="FullName">ФИО обучаемого</label>
-                    <input type="text" class="form-control" id="FullName" name="FullName" runat="server" autocomplete="off" />
+                    <label for="Full_Name">ФИО обучаемого</label>
+                    <select class="form-control" id="Full_Name" name="Full_Name" runat="server" ></select>
                 </div>
                 <div class="col-md-4">
                     <div class="row">

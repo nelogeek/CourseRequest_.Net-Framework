@@ -42,13 +42,13 @@ namespace CourseRequest__.Net_Framework_
         protected global::System.Web.UI.HtmlControls.HtmlSelect Stat;
 
         /// <summary>
-        /// Dep элемент управления.
+        /// Department элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Dep;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect Department;
 
         /// <summary>
         /// CourseBegin_list элемент управления.
@@ -69,13 +69,13 @@ namespace CourseRequest__.Net_Framework_
         protected global::System.Web.UI.HtmlControls.HtmlInputText CourseEnd_list;
 
         /// <summary>
-        /// FullName элемент управления.
+        /// Full_Name элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText FullName;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect Full_Name;
 
         /// <summary>
         /// Course_Type_list элемент управления.
