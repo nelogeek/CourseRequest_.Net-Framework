@@ -53,9 +53,145 @@ namespace CourseRequest__.Net_Framework_
 
                 // получение всех годов
                 GetYearDropDownList();
+
+                // получение названий курсов
+                GetCourseNameDropDownList();
+
+                // получение типов курсов
+                GetCourseTypeDropDownList();
+
+                // получение статусов заявок
+                GetCourseStatusDropDownList();
             }
         }
 
+
+        protected void GetCourseStatusDropDownList()
+        {
+            try
+            {
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Выполните SQL-запрос для получения данных для выпадающего списка
+                    string query = "SELECT id, status FROM public.status ORDER BY id ASC"; // Замените на ваш запрос
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Очистите существующие элементы в списке
+                        Stat.Items.Clear();
+
+                        // Добавьте пустой элемент (первый элемент списка)
+                        Stat.Items.Add(new ListItem("", ""));
+
+                        // Добавьте элементы в список на основе данных из базы данных
+                        while (reader.Read())
+                        {
+                            string id = reader.GetInt32(0).ToString();
+                            string status = reader.GetString(1);
+                            ListItem listItem = new ListItem(status, id);
+                            Stat.Items.Add(listItem);
+                        }
+                    }
+
+                    connection.Close();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+
+        protected void GetCourseTypeDropDownList()
+        {
+            try
+            {
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Выполните SQL-запрос для получения данных для выпадающего списка
+                    string query = "SELECT id, type FROM public.type ORDER BY id ASC"; // Замените на ваш запрос
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Очистите существующие элементы в списке
+                        Course_Type_list.Items.Clear();
+
+                        // Добавьте пустой элемент (первый элемент списка)
+                        Course_Type_list.Items.Add(new ListItem("", ""));
+
+                        // Добавьте элементы в список на основе данных из базы данных
+                        while (reader.Read())
+                        {
+                            string id = reader.GetInt32(0).ToString();
+                            string type = reader.GetString(1);
+                            ListItem listItem = new ListItem(type, id);
+                            Course_Type_list.Items.Add(listItem);
+                        }
+                    }
+
+                    connection.Close();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+
+        protected void GetCourseNameDropDownList()
+        {
+
+            try
+            {
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Выполните SQL-запрос для получения данных для выпадающего списка
+                    string query = "SELECT id, name FROM public.course ORDER BY id DESC"; // Замените на ваш запрос
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Очистите существующие элементы в списке
+                        Course_Name_list.Items.Clear();
+
+                        // Добавьте пустой элемент (первый элемент списка)
+                        Course_Name_list.Items.Add(new ListItem("", ""));
+
+                        // Добавьте элементы в список на основе данных из базы данных
+                        while (reader.Read())
+                        {
+                            string id = reader.GetInt32(0).ToString();
+                            string course = reader.GetString(1);
+                            ListItem listItem = new ListItem(course, id);
+                            Course_Name_list.Items.Add(listItem);
+                        }
+                    }
+
+                    connection.Close();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
 
 
         protected void GetYearDropDownList()
@@ -69,7 +205,7 @@ namespace CourseRequest__.Net_Framework_
                     connection.Open();
 
                     // Выполните SQL-запрос для получения данных для выпадающего списка
-                    string query = "SELECT DISTINCT year FROM (SELECT EXTRACT(YEAR FROM course_start) AS year FROM public.request UNION SELECT EXTRACT(YEAR FROM course_end) AS year FROM public.request) AS years ORDER BY year"; // Замените на ваш запрос
+                    string query = "SELECT year FROM (SELECT EXTRACT(YEAR FROM course_start) AS year FROM public.request UNION SELECT EXTRACT(YEAR FROM course_end) AS year FROM public.request) AS years ORDER BY year"; // Замените на ваш запрос
 
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -111,7 +247,7 @@ namespace CourseRequest__.Net_Framework_
                     connection.Open();
 
                     // Выполните SQL-запрос для получения данных для выпадающего списка
-                    string query = "SELECT department FROM public.request ORDER BY department ASC"; // Замените на ваш запрос
+                    string query = "SELECT DISTINCT department FROM public.request ORDER BY department ASC"; // Замените на ваш запрос
 
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -152,7 +288,7 @@ namespace CourseRequest__.Net_Framework_
                     connection.Open();
 
                     // Выполните SQL-запрос для получения данных для выпадающего списка
-                    string query = "SELECT full_name FROM public.request ORDER BY department ASC"; // Замените на ваш запрос
+                    string query = "SELECT DISTINCT full_name FROM public.request ORDER BY full_name ASC"; // Замените на ваш запрос
 
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -245,16 +381,16 @@ namespace CourseRequest__.Net_Framework_
             string courseEnd = CourseEnd_list.Value.ToString();
             string fullName = Full_Name.Value.ToString();
             string courseType = Course_Type_list.Value.ToString();
-            string courseName = Course_Name.Value.ToString();
+            string courseName = Course_Name_list.Value.ToString();
             string onlyMyReq = OnlyMyReq.Value.ToString();
 
             List<Request> filteredRequests = GetFilteredRequests(year, stat, dep, courseBegin, courseEnd, fullName, courseType, courseName, onlyMyReq);
 
             requestCount = filteredRequests.Count;
 
-            //Response.Write($"{year}, {stat}, {dep}, {courseBegin}, {courseEnd}, {fullName}, {courseType}, {courseName}, {checkbox}");
+            //Response.Write($"{year}, {stat}, {dep}, {courseBegin}, {courseEnd}, {fullName}, {courseType}, {courseName}, {onlyMyReq}");
 
-            //Response.Write(OnlyMyReqCheckbox.Checked);
+            //Response.Write(OnlyMyReq.Checked);
 
             // Обновляем RepeaterRequests данными
             RepeaterRequests.DataSource = filteredRequests;
@@ -279,11 +415,13 @@ namespace CourseRequest__.Net_Framework_
                 {
                     connection.Open();
 
-                    string query = "SELECT r.id, full_name, department, position, course_name, t.type, notation, s.status, course_start, course_end, year, creator " +
+                    string query = "SELECT r.id, r.full_name, r.department, r.position, c.name, t.type, r.notation, s.status, r.course_start, r.course_end, r.year, r.creator " +
                             "FROM public.request r " +
                             "JOIN public.type t ON t.id = r.course_type_id " +
                             "JOIN public.status s ON s.id = r.status_id " +
+                            "JOIN public.course c ON c.id = r.course_name_id " +
                             "WHERE 1=1";
+
 
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     {
@@ -325,8 +463,8 @@ namespace CourseRequest__.Net_Framework_
                         }
                         if (!string.IsNullOrEmpty(courseName))
                         {
-                            query += " AND course_name ILIKE @CourseName";
-                            command.Parameters.AddWithValue("@CourseName", "%" + courseName + "%");
+                            query += " AND r.course_name_id = @CourseNameId";
+                            command.Parameters.AddWithValue("@CourseNameId", Convert.ToInt32(courseName));
                         }
                         if (!string.IsNullOrEmpty(onlyMyReq))
                         {
@@ -360,8 +498,10 @@ namespace CourseRequest__.Net_Framework_
                                 User = reader.GetString(11)
                             };
 
+                            
                             requests.Add(request);
                         }
+                        //Response.Write($"{requests[0].Id}, {requests[0].Full_Name}, {requests[0].Department}, {requests[0].Position}, {requests[0].Course_Name}, {requests[0].Course_Type}, {requests[0].Notation}, {requests[0].Status}, {requests[0].Course_Start}, {requests[0].Course_End}, {requests[0].Year}, {requests[0].User}");
                     }
                 }
             }

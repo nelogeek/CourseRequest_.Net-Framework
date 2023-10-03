@@ -19,6 +19,7 @@ using System.Web.Script.Serialization;
 using System.Web.Script.Services;
 using System.Web.Profile;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace CourseRequest__.Net_Framework_
 {
@@ -29,7 +30,7 @@ namespace CourseRequest__.Net_Framework_
         [AllowAnonymous]
         protected void Page_Load(object sender, EventArgs e)
         {
-            int role = GetRoleByUsername();
+            int role =  GetRoleByUsername();
             if (role != 1)
             {
                 Response.Redirect($"~/ListRequest.aspx");
@@ -40,7 +41,7 @@ namespace CourseRequest__.Net_Framework_
             {
 
                 // получение и вывод всех НОВЫХ заявок в таблицу
-                List<Request> requests = GetRequestsFromDatabase();
+                List<Request> requests =  GetRequestsFromDatabase();
                 RepeaterRequests.DataSource = requests;
                 RepeaterRequests.DataBind();
 
@@ -50,11 +51,188 @@ namespace CourseRequest__.Net_Framework_
 
                 // получение ФИО сотрудников
                 GetFioDropDownList();
+
+                // получение названий курсов
+                GetCourseNameDropDownList();
+
+                // получение типов курсов
+                GetCourseTypeDropDownList();
+
+                // получение статусов заявок
+                GetCourseStatusDropDownList();
             }
         }
 
+
+        protected void GetCourseStatusDropDownList()
+        {
+            try
+            {
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Выполните SQL-запрос для получения данных для выпадающего списка
+                    string query = "SELECT id, status FROM public.status ORDER BY id ASC"; // Замените на ваш запрос
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Очистите существующие элементы в списке
+                        Status.Items.Clear();
+
+                        // Добавьте элементы в список на основе данных из базы данных
+                        while (reader.Read())
+                        {
+                            string id = reader.GetInt32(0).ToString();
+                            string status = reader.GetString(1);
+                            ListItem listItem = new ListItem(status, id);
+                            Status.Items.Add(listItem);
+                        }
+                    }
+
+                    connection.Close();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        protected void GetCourseTypeDropDownList()
+        {
+            try
+            {
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Выполните SQL-запрос для получения данных для выпадающего списка
+                    string query = "SELECT id, type FROM public.type ORDER BY id ASC"; // Замените на ваш запрос
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Очистите существующие элементы в списке
+                        Course_Type.Items.Clear();
+
+                        // Добавьте пустой элемент (первый элемент списка)
+                        Course_Type.Items.Add(new ListItem("", ""));
+
+                        // Добавьте элементы в список на основе данных из базы данных
+                        while (reader.Read())
+                        {
+                            string id = reader.GetInt32(0).ToString();
+                            string type = reader.GetString(1);
+                            ListItem listItem = new ListItem(type, id);
+                            Course_Type.Items.Add(listItem);
+                        }
+                    }
+
+                    connection.Close();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+
+        protected void GetCourseNameDropDownList()
+        {
+
+            try
+            {
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Выполните SQL-запрос для получения данных для выпадающего списка
+                    string query = "SELECT id, name FROM public.course ORDER BY id DESC"; // Замените на ваш запрос
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Очистите существующие элементы в списке
+                        Course_Name.Items.Clear();
+
+                        // Добавьте пустой элемент (первый элемент списка)
+                        Course_Name.Items.Add(new ListItem("", ""));
+
+                        // Добавьте элементы в список на основе данных из базы данных
+                        while (reader.Read())
+                        {
+                            string id = reader.GetInt32(0).ToString();
+                            string course = reader.GetString(1);
+                            ListItem listItem = new ListItem(course, id);
+                            Course_Name.Items.Add(listItem);
+                        }
+                    }
+
+                    connection.Close();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
+
+
+        protected void AddNewCourse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string newCourseName = newCourseNameInput.Value;
+
+                // Строка подключения к базе данных PostgreSQL
+                string connectionString = ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // SQL-запрос для вставки данных в таблицу 'request'
+                    string sql = @"INSERT INTO public.course (name) VALUES (@Name)";
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@Name", newCourseName);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            catch (FormatException ex)
+            {
+                // Обработка ошибки парсинга
+                Console.WriteLine("Неправильно введены значения в поля: " + ex.Message);
+                // Здесь вы можете предпринять необходимые действия, например, вывести сообщение об ошибке пользователю или установить значение по умолчанию.
+            }
+            catch (Exception) { }
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "closeModal", "$('#addCourseModal').modal('hide');", true);
+
+        }
+
+
         protected void GetFioDropDownList()
         {
+            string username = GetUserName();
+
+            string department = GetDepartmentByUsername(username);
+
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString_MSSQL"].ConnectionString;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -62,29 +240,35 @@ namespace CourseRequest__.Net_Framework_
                 connection.Open();
 
                 // Выполните SQL-запрос для получения данных для выпадающего списка
-                string query = "SELECT FIO, Dept, Position FROM custom_view_employees"; // Замените на ваш запрос
-                SqlCommand command = new SqlCommand(query, connection);
-                SqlDataReader reader = command.ExecuteReader();
+                string query = "SELECT DISTINCT FIO, Dept, Position FROM custom_view_employees where Dept LIKE @Department ORDER BY FIO ASC"; // 
 
-                // Очистите существующие элементы в списке
-                Full_Name.Items.Clear();
-
-                // Добавьте пустой элемент (первый элемент списка)
-                Full_Name.Items.Add(new ListItem("", ""));
-
-                // Добавьте элементы в список на основе данных из базы данных
-                while (reader.Read())
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    string fio = reader["FIO"].ToString();
-                    string dept = reader["Dept"].ToString();
-                    string position = reader["Position"].ToString();
+                    command.Parameters.AddWithValue("@Department", "%" + department + "%");
 
-                    // Создайте элемент списка с атрибутами data-dept и data-position
-                    ListItem listItem = new ListItem(fio, fio);
-                    listItem.Attributes["data-dept"] = dept;
-                    listItem.Attributes["data-position"] = position;
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Очистите существующие элементы в списке
+                        Full_Name.Items.Clear();
 
-                    Full_Name.Items.Add(listItem);
+                        // Добавьте пустой элемент (первый элемент списка)
+                        Full_Name.Items.Add(new ListItem("", ""));
+
+                        // Добавьте элементы в список на основе данных из базы данных
+                        while (reader.Read())
+                        {
+                            string fio = reader["FIO"].ToString();
+                            string dept = reader["Dept"].ToString();
+                            string position = reader["Position"].ToString();
+
+                            // Создайте элемент списка с атрибутами data-dept и data-position
+                            ListItem listItem = new ListItem(fio, fio);
+                            listItem.Attributes["data-dept"] = dept;
+                            listItem.Attributes["data-position"] = position;
+
+                            Full_Name.Items.Add(listItem);
+                        }
+                    }
                 }
 
                 connection.Close();
@@ -92,7 +276,36 @@ namespace CourseRequest__.Net_Framework_
         }
 
 
+        protected string GetDepartmentByUsername(string username)
+        {
+            string department = "";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString_MSSQL"].ConnectionString;
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Выполните SQL-запрос для получения данных для выпадающего списка
+                string query = "SELECT Dept FROM custom_view_employees where LoginName = @Username"; // Замените на ваш запрос
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    // Добавьте элементы в список на основе данных из базы данных
+                    if (reader.Read())
+                    {
+                        department = reader["Dept"].ToString();
+                    }
+                }
+
+
+
+                connection.Close();
+            }
+
+            return department;
+        }
 
 
 
@@ -108,17 +321,17 @@ namespace CourseRequest__.Net_Framework_
             {
                 using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
-                    connection.Open();
+                     connection.Open();
 
-                    string query = "SELECT role_id FROM users WHERE username = @Username";
+                    string query = "SELECT role_id FROM users WHERE lower(username) = lower(@Username)";
 
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Username", username);
 
-                        using (NpgsqlDataReader reader = command.ExecuteReader())
+                        using (NpgsqlDataReader reader =  command.ExecuteReader())
                         {
-                            if (reader.Read())
+                            if ( reader.Read())
                             {
                                 role = reader.GetInt32(0);
                             }
@@ -141,10 +354,9 @@ namespace CourseRequest__.Net_Framework_
             {
                 // Получаем значения из элементов формы
                 string fullName = Full_Name.Value;
-
                 string department = Department.Value;
                 string position = Position.Value;
-                string courseName = Course_Name.Value;
+                int courseNameId = Convert.ToInt32(Course_Name.Value);
                 int courseType = Convert.ToInt32(Course_Type.Value);
                 string notation = Notation.Value;
                 int status = Convert.ToInt32(Status.Value);
@@ -161,15 +373,15 @@ namespace CourseRequest__.Net_Framework_
                     connection.Open();
 
                     // SQL-запрос для вставки данных в таблицу 'request'
-                    string sql = @"INSERT INTO public.request (full_name, department, position, course_name, course_type_id, notation, status_id, course_start, course_end, year, creator) 
-                       VALUES (@FullName, @Department, @Position, @CourseName, @CourseType, @Notation, @Status, @CourseStart, @CourseEnd, @Year, @User)";
+                    string sql = @"INSERT INTO public.request (full_name, department, position, course_name_id, course_type_id, notation, status_id, course_start, course_end, year, creator) 
+                       VALUES (@FullName, @Department, @Position, @CourseNameId, @CourseType, @Notation, @Status, @CourseStart, @CourseEnd, @Year, @User)";
 
                     using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@FullName", fullName);
                         command.Parameters.AddWithValue("@Department", department);
                         command.Parameters.AddWithValue("@Position", position);
-                        command.Parameters.AddWithValue("@CourseName", courseName);
+                        command.Parameters.AddWithValue("@CourseNameId", courseNameId);
                         command.Parameters.AddWithValue("@CourseType", courseType);
                         command.Parameters.AddWithValue("@Notation", notation);
                         command.Parameters.AddWithValue("@Status", status);
@@ -194,86 +406,16 @@ namespace CourseRequest__.Net_Framework_
             catch (Exception) { }
         }
 
-        protected void InsertUsernameInDB()
-        {
-            // Получите значение из элемента ввода на вашей веб-странице (например, TextBox)
-            string username = GetUserName(); // Замените "YourUsernameTextBox" на реальное имя элемента ввода
+        
 
-            // Проверьте, существует ли уже пользователь с таким именем в таблице users
-            if (!UserExistsInDB(username))
-            {
-                // Если пользователь не существует, выполните вставку в таблицу users
-
-                // Строка подключения к базе данных PostgreSQL
-                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
-
-                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
-                {
-                    try
-                    {
-                        connection.Open();
-
-                        // SQL-запрос для вставки нового пользователя
-                        string sql = "INSERT INTO users (username, role_id) VALUES (@Username, @RoleId)";
-
-                        using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
-                        {
-                            // Задайте значения параметров для вставки
-                            command.Parameters.AddWithValue("@Username", username);
-                            command.Parameters.AddWithValue("@RoleId", 3); // Замените "YourRoleId" на соответствующий идентификатор роли
-
-                            // Выполните запрос на вставку
-                            command.ExecuteNonQuery();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Обработка ошибок, логирование и т. д.
-                        Console.WriteLine("Произошла ошибка при вставке пользователя: " + ex.Message);
-                    }
-                }
-            }
-        }
-
-        // Функция для проверки существования пользователя в таблице users
-        private bool UserExistsInDB(string username)
-        {
-            // Строка подключения к базе данных PostgreSQL
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["CourseRequestConnectionString"].ConnectionString;
-
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    // SQL-запрос для проверки существования пользователя
-                    string sql = "SELECT COUNT(*) FROM users WHERE username = @Username";
-
-                    using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
-                    {
-                        command.Parameters.AddWithValue("@Username", username);
-
-                        int count = (int)command.ExecuteScalar();
-
-                        // Если count больше нуля, пользователь уже существует
-                        return count > 0;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Обработка ошибок, логирование и т. д.
-                    Console.WriteLine("Произошла ошибка при проверке существования пользователя: " + ex.Message);
-                    return false; // По умолчанию считаем, что пользователь не существует
-                }
-            }
-        }
 
         protected string GetUserName()
         {
             string userName = Page.User.Identity.Name;
             return userName;
         }
+
+
 
         public int GetUserId()
         {
@@ -325,13 +467,14 @@ namespace CourseRequest__.Net_Framework_
             {
                 try
                 {
-                    connection.Open();
+                     connection.OpenAsync();
 
                     // SQL-запрос для извлечения данных из таблицы 'Request'
-                    string sql = "SELECT r.id, full_name, department, position, course_name, t.type, notation, s.status, course_start, course_end, year, creator " +
+                    string sql = "SELECT r.id, full_name, department, position, c.name, t.type, notation, s.status, course_start, course_end, year, creator " +
                         "FROM public.request r " +
                         "JOIN public.type t ON t.id = r.course_type_id " +
                         "JOIN public.status s ON s.id = r.status_id " +
+                        "JOIN public.course c ON c.id = r.course_name_id " +
                         "WHERE s.status = 'Новая' AND creator = @User " +
                         "ORDER BY id DESC";
 
@@ -340,9 +483,9 @@ namespace CourseRequest__.Net_Framework_
                         string userName = GetUserName();
                         command.Parameters.AddWithValue("@User", userName);
 
-                        using (NpgsqlDataReader reader = command.ExecuteReader())
+                        using (NpgsqlDataReader reader =  command.ExecuteReader())
                         {
-                            while (reader.Read())
+                            while ( reader.Read())
                             {
                                 Request request = new Request
                                 {
@@ -350,7 +493,7 @@ namespace CourseRequest__.Net_Framework_
                                     Full_Name = reader.GetString(reader.GetOrdinal("full_name")),
                                     Department = reader.GetString(reader.GetOrdinal("department")),
                                     Position = reader.GetString(reader.GetOrdinal("position")),
-                                    Course_Name = reader.GetString(reader.GetOrdinal("course_name")),
+                                    Course_Name = reader.GetString(reader.GetOrdinal("name")),
                                     Course_Type = reader.GetString(reader.GetOrdinal("type")),
                                     Notation = reader.GetString(reader.GetOrdinal("notation")),
                                     Status = reader.GetString(reader.GetOrdinal("status")),

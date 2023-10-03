@@ -96,13 +96,13 @@ namespace CourseRequest__.Net_Framework_
         protected global::System.Web.UI.HtmlControls.HtmlSelect OnlyMyReq;
 
         /// <summary>
-        /// Course_Name элемент управления.
+        /// Course_Name_list элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Course_Name;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect Course_Name_list;
 
         /// <summary>
         /// applyFiltersBtn элемент управления.

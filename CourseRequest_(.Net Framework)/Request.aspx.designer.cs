@@ -39,7 +39,25 @@ namespace CourseRequest__.Net_Framework_
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea Course_Name;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect Course_Name;
+
+        /// <summary>
+        /// newCourseNameInput элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText newCourseNameInput;
+
+        /// <summary>
+        /// createNewCourseNameButton элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton createNewCourseNameButton;
 
         /// <summary>
         /// Status элемент управления.

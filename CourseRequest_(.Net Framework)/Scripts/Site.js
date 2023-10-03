@@ -20,7 +20,7 @@ $(document).ready(function () {
 
 
 
- // Маска для полей с датой
+// Маска для полей с датой
 $(document).ready(function () {
     $('.date-input').mask('99.99.9999');
 });
@@ -46,5 +46,6 @@ $(document).ready(function () {
         $position.val(position);
     });
 });
+
 
 

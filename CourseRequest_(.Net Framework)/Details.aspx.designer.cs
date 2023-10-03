@@ -24,85 +24,85 @@ namespace CourseRequest__.Net_Framework_
         protected global::System.Web.UI.HtmlControls.HtmlAnchor BackBtn;
 
         /// <summary>
-        /// Full_Name элемент управления.
+        /// Full_Name_det элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Full_Name;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Full_Name_det;
 
         /// <summary>
-        /// Course_Name элемент управления.
+        /// Course_Name_det элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea Course_Name;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Course_Name_det;
 
         /// <summary>
-        /// Status элемент управления.
+        /// Status_det элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect Status;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect Status_det;
 
         /// <summary>
-        /// Department элемент управления.
+        /// Department_det элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Department;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Department_det;
 
         /// <summary>
-        /// Course_Type элемент управления.
+        /// Course_Type_det элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect Course_Type;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Course_Type_det;
 
         /// <summary>
-        /// Course_Start элемент управления.
+        /// Course_Start_det элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Course_Start;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Course_Start_det;
 
         /// <summary>
-        /// Course_End элемент управления.
+        /// Course_End_det элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Course_End;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Course_End_det;
 
         /// <summary>
-        /// Position элемент управления.
+        /// Position_det элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Position;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Position_det;
 
         /// <summary>
-        /// Notation элемент управления.
+        /// Notation_det элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea Notation;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea Notation_det;
 
         /// <summary>
         /// User элемент управления.

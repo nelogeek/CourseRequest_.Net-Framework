@@ -69,12 +69,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label>Тип курса</label>
-                            <select class="form-control" id="Course_Type_list" name="Course_Type_list" runat="server">
-                                <option value="">Все типы</option>
-                                <option value="1">Базовый</option>
-                                <option value="2">Продвинутый</option>
-                                <option value="3">Для администраторов</option>
-                            </select>
+                            <select class="form-control" id="Course_Type_list" name="Course_Type_list" runat="server"></select>
                         </div>
                         <div class="col-md-6">
                             <label>Показать</label>
@@ -93,7 +88,7 @@
                 </div>
                 <div class="col-md-4 ">
                     <label>Наименование курса</label>
-                    <input type="text" class="form-control" id="Course_Name" name="Course_Name" runat="server" autocomplete="off" />
+                    <select class="form-control" id="Course_Name_list" name="Course_Name_list" runat="server" required></select>
                 </div>
                 <div class="col-md-4">
                 </div>
